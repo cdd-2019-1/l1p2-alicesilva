@@ -13,5 +13,22 @@ theme_set(theme_bw())
 ```
 
 ```{r read}
-atividade = read_projectdata()
+perfis_twitter = read_csv(here::here("data/atividade-por-perfil-20190322.csv"))
+
+glimpse(perfis_twitter)
+```
+
+```{r read}
+partidos_twitter = perfis_twitter %>% 
+  filter(seguidores != "NA")
+
+glimpse(partidos_twitter)
+```
+
+
+```{r}
+partidos_twitter %>%
+  mutate(seguidores = as.integer(seguidores)) %>%
+  ggplot(mapping = aes(x = partido, y = seguidores, color = partido, legend(y = NULL))) +
+  geom_point()
 ```
