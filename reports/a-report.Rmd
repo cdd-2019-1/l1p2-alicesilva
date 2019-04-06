@@ -1,5 +1,5 @@
 ---
-title: "REPLACE ME"
+title: "LAB 1 - Parte 2"
 output:
     html_document:
     df_print: paged
@@ -17,8 +17,8 @@ perfis_twitter = read_csv(here::here("data/atividade-por-perfil-20190322.csv"))
 
 glimpse(perfis_twitter)
 ```
-
-```{r read}
+ Quais os partidos que possuem um maior número de seguidores?
+```{r}
 partidos_twitter = perfis_twitter %>% 
   filter(seguidores != "NA")
 
@@ -29,6 +29,33 @@ glimpse(partidos_twitter)
 ```{r}
 partidos_twitter %>%
   mutate(seguidores = as.integer(seguidores)) %>%
-  ggplot(mapping = aes(x = partido, y = seguidores, color = partido, legend(y = NULL))) +
-  geom_point()
+  ggplot(mapping = aes(x = seguidores, y = casa, color = partido)) +
+  geom_jitter()
+```
+Os deputados que são filiados ao PSL são ativos no twitter assim como o atual presidente da república?
+```{r}
+camara_psl = partidos_twitter %>%
+    filter(casa == "câmara") %>%
+  filter(partido == "PSL") %>%
+  arrange(engaj_total)
+
+glimpse(camara_psl)
+```
+```{r}
+camara_psl %>%
+  ggplot(mapping = aes(x =engaj_total, y = nome_eleitoral)) +
+  geom_jitter()
+```
+```{r}
+partidos_twitter_camara = partidos_twitter %>% 
+  filter(casa == "câmara")
+
+glimpse(partidos_twitter_camara)
+```
+
+```{r}
+partidos_twitter_camara %>%
+  mutate(seguidores = as.integer(seguidores)) %>%
+  ggplot(mapping = aes(x = seguidores, y = partido, color = partido)) +
+  geom_jitter()
 ```
