@@ -1,5 +1,5 @@
 ---
-title: "LAB 1 - Parte 2"
+title: "LAB 1 - Parte 2: Respostas Individuais"
 output:
     html_document:
     df_print: paged
@@ -11,7 +11,7 @@ library(tidyverse)
 source(here::here("code/lib.R"))
 theme_set(theme_bw())
 ```
-O twitter é uma rede social que oferece um espaço, atualmente, de 280 caracteres para o usuário postar sua mensagem. Também conhecido como microblogging, devido ao seu pouco espaço disponível para postagem de informação. O twitter ganha cada vez mais adeptos na internet. E com isso os usuários são capazes de expor opniões, críticas ou sentimentos em seus tweets, logo, os parlamentares brasileiros costumam utilizar a rede social para mostrar seus trabalhos, críticas outros parlamentares ou o governo, e entre outras coisas.
+O twitter é uma rede social que oferece um espaço, atualmente, de 280 caracteres para o usuário postar sua mensagem. Também conhecido como microblogging, devido ao seu pouco espaço disponível para postagem de informação. O twitter ganha cada vez mais adeptos na internet. E com isso os usuários são capazes de expor opniões, críticas ou sentimentos em seus tweets, logo, os parlamentares brasileiros costumam utilizar a rede social para mostrar seus trabalhos, críticar outros parlamentares ou o governo, e entre outras coisas.
 
 Com isso foram coletados alguns dados que mostram se os parlamentares da câmara e do senado possuem algum perfil no twitter,se sim, quantos seguidores possuem e como é a sua participação na rede social com tweets de próprio de contéudo e retweets.
 ```{r read}
@@ -19,9 +19,9 @@ perfis_twitter = read_csv(here::here("data/atividade-por-perfil-20190322.csv"))
 
 glimpse(perfis_twitter)
 ```
-Portanto foram criadas algumas perguntas que serão respondidas a partir das visualizações abaixo.
+Portanto, foram criadas algumas perguntas que serão respondidas a partir das visualizações abaixo.
 
-##No estado da paraíba, PB, quais são os deputados mais ativos no twitter?
+###No estado da paraíba, PB, quais são os deputados mais ativos no twitter?
 
 ```{r readDeputadosPB}
 deputados_twitter_pb = perfis_twitter %>% 
@@ -39,10 +39,9 @@ deputados_twitter_pb %>%
   geom_jitter()
 ```
 
+Pela visualização acima podemos ver que os deputados que possuem maior engajamento no twitter é Pedro Cunha Lima, Gervásio Maia e Efraim Filho. E todos os outros deputados são muito pouco ativos ou não possuem engajamento nenhum.
 
-Pela visualização acima podemos ver que os depuatdos que possuem maior engajamento no twitter é Pedro Cunha Lima, Gervásio Maia e Efraim Filho. E todos os outros deputados são muito pouco ativos ou não possuem engajamento nenhum.
-
-Para esses deputados que possuem engajamento, eles possuem mais tweets de próprio contéudo ou retweets?
+Para esses deputados que possuem algum engajamento, a participação é maior em tweets de próprio contéudo ou retweets?
 
 ```{r}
 deputados_twitter_pb_engaj = deputados_twitter_pb %>%
@@ -51,16 +50,17 @@ deputados_twitter_pb_engaj = deputados_twitter_pb %>%
 glimpse(deputados_twitter_pb_engaj)
 ```
 
-##Engajamento em tweets de próprio contéudo
+###Engajamento em tweets de próprio contéudo...
 
 ```{r}
 deputados_twitter_pb_engaj %>%
   ggplot(mapping = aes(x = engaj_total_proprio, y = nome_eleitoral, color = partido)) +
   geom_jitter()
 ```
+
 Dentre de todos esses deputados, Pedro Cunha Lima é o que mais possui tweets de próprio de conteúdo juntamente com o deputado Gervásio Maia.
 
-##Engajamento em retweets
+###Engajamento em retweets...
 
 ```{r}
 deputados_twitter_pb_engaj %>%
@@ -68,12 +68,12 @@ deputados_twitter_pb_engaj %>%
   geom_jitter()
 ```
 
-Além, os dois parlamentares, Pedro Cunha Lima e Gervásio Maia possuem um grande engajamento em retweets.
+Além disso, os dois parlamentares, Pedro Cunha Lima e Gervásio Maia, possuem um grande engajamento em retweets.
 
-Mas, olhando para a escala do eixo x nas duas visualizsções, temos que o engajamento do deputado Pedro Cunha Lima é maior em retweets, e os outros parlamentares, possuem mais tweets de conteúdo próprio do que retweets.
+Mas, olhando para a escala do eixo x nas duas visualizações, temos que o engajamento do deputado Pedro Cunha Lima é maior em retweets, e os demais parlamentares, possuem mais tweets de conteúdo próprio do que retweets.
+
 
 ###Os deputados que são filiados ao PSL são ativos no twitter assim como o atual presidente da república?
-
 
 ```{r}
 camara_psl = perfis_twitter %>%
@@ -89,20 +89,27 @@ camara_psl %>%
   ggplot(mapping = aes(x = engaj_total, y = nome_eleitoral)) +
   geom_jitter()
 ```
-Podemos ver que boa parte dos deputados do PSL possuem eganjamento com valores bem próximos, além disso, os 3 deputados que são muito ativos são: Bia Kicis, Carla Zambelli e Joice Hasselmann. Existem alguns parlamentares, tais como Luiz Phillippe de Orlenas e Bragança, General Peternelli, Carlos Jordy e Alexandre Frota que são bem mais ativos que os demais.
 
-###E quais destes parlamentares possuem são mais ativos em retweets?
+Podemos ver que boa parte dos deputados do PSL possuem eganjamento com valores bem próximos a 0, além disso, os 3 deputados que são mais ativos são: Bia Kicis, Carla Zambelli e Joice Hasselmann. Existem alguns parlamentares, tais como Luiz Phillippe de Orlenas e Bragança, General Peternelli, Carlos Jordy e Alexandre Frota que também são bem mais ativos que os demais.
+
+Ao total temos 46 deputados, mas, podemos ver que apenas 7 deles são bem ativos na rede social, em comparação aos demais.
+
+###E quais destes parlamentares são mais ativos em retweets?
+
 ```{r}
 camara_psl %>%
   ggplot(mapping = aes(x = engaj_total_retweet, y = nome_eleitoral)) +
   geom_jitter()
 ```
+
 Temos que a maioria dos deputados possuem engajamaneto em retweets entre 0 e 3000, e existem alguns parlamentares que estão fora deste intrevalo, como: Bia Kicis, Carla Zambile, General Perterneli, Joice Hasselmann e Nereu Crispim.
 
-###E quais destes parlamentares possuem são mais ativos tweets de próprio contéudo?
+###E quais destes parlamentares são mais ativos em tweets de próprio contéudo?
+
 ```{r}
 camara_psl %>%
   ggplot(mapping = aes(x = engaj_total_proprio, y = nome_eleitoral)) +
   geom_jitter()
 ```
+
 A maioria dos deputados estão em uma faixa de valores, porém existem alguns que estão fora deste intervalo, como: Alexandre Frota, Bia Kicis, Carla Zambelli, Carlos Jordy, Joice Hasselmann e Luiz Philippe de Orleans e Brangança.
