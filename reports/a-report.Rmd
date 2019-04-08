@@ -97,3 +97,12 @@ camara_psl %>%
   ggplot(mapping = aes(x = engaj_total_retweet, y = nome_eleitoral)) +
   geom_jitter()
 ```
+Temos que a maioria dos deputados possuem engajamaneto em retweets entre 0 e 3000, e existem alguns parlamentares que estão fora deste intrevalo, como: Bia Kicis, Carla Zambile, General Perterneli, Joice Hasselmann e Nereu Crispim.
+
+###E quais destes parlamentares possuem são mais ativos tweets de próprio contéudo?
+```{r}
+camara_psl %>%
+  ggplot(mapping = aes(x = engaj_total_proprio, y = nome_eleitoral)) +
+  geom_jitter()
+```
+A maioria dos deputados estão em uma faixa de valores, porém existem alguns que estão fora deste intervalo, como: Alexandre Frota, Bia Kicis, Carla Zambelli, Carlos Jordy, Joice Hasselmann e Luiz Philippe de Orleans e Brangança.
